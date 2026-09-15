@@ -3,15 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>POSINIT | Videojuegos</title>
+<title>POSINIT | Programación</title>
 
 <style>
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
+
+html{scroll-behavior:smooth;}
 
 body{
     background:#f4f7fb;
@@ -20,9 +22,11 @@ body{
 
 header{
     background:#0d1b2a;
+    color:white;
     position:sticky;
     top:0;
     z-index:1000;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
 }
 
 nav{
@@ -31,12 +35,11 @@ nav{
     margin:auto;
     padding:0 25px;
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
 }
 
 .logo{
-    color:white;
     font-size:25px;
     font-weight:bold;
 }
@@ -52,17 +55,18 @@ nav{
 .menu a{
     color:white;
     text-decoration:none;
+    transition:.3s;
 }
 
 .menu a:hover{color:#4da3ff;}
 
 .hero{
     min-height:430px;
-    background:linear-gradient(135deg,#10182d,#323c88);
+    background:linear-gradient(135deg,#0d1b2a,#174a7e);
     color:white;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     text-align:center;
     padding:40px 20px;
 }
@@ -75,9 +79,9 @@ nav{
 }
 
 .hero p{
+    color:#d8e7f7;
     font-size:19px;
     line-height:1.7;
-    color:#dde2ff;
 }
 
 .contenedor{
@@ -87,14 +91,14 @@ nav{
 }
 
 .titulo{
-    font-size:34px;
     text-align:center;
+    font-size:34px;
     margin-bottom:15px;
 }
 
 .subtitulo{
-    color:#657080;
     text-align:center;
+    color:#657080;
     margin-bottom:45px;
 }
 
@@ -108,21 +112,23 @@ nav{
     background:white;
     padding:30px;
     border-radius:14px;
-    border:1px solid #e5e8ef;
+    border:1px solid #e4e9ef;
     box-shadow:0 6px 18px rgba(0,0,0,.07);
     transition:.3s;
 }
 
 .tarjeta:hover{
     transform:translateY(-7px);
+    box-shadow:0 12px 25px rgba(0,0,0,.12);
 }
 
-.tarjeta .icono{
-    font-size:42px;
+.icono{
+    font-size:40px;
     margin-bottom:15px;
 }
 
 .tarjeta h3{
+    color:#0d1b2a;
     margin-bottom:12px;
 }
 
@@ -131,37 +137,47 @@ nav{
     line-height:1.6;
 }
 
-.interactivo{
+.demo{
     background:#eaf3ff;
     text-align:center;
 }
 
+.codigo{
+    max-width:700px;
+    margin:30px auto;
+    background:#0d1b2a;
+    color:#d7e8fa;
+    text-align:left;
+    padding:25px;
+    border-radius:12px;
+    font-family:Consolas,monospace;
+}
+
 .boton{
-    border:0;
+    padding:13px 25px;
+    border:none;
+    border-radius:8px;
     background:#2684ff;
     color:white;
-    padding:13px 25px;
-    border-radius:8px;
     font-weight:bold;
     cursor:pointer;
     text-decoration:none;
     display:inline-block;
-    margin:8px;
+    transition:.3s;
 }
 
-.boton:hover{background:#0f6edb;}
+.boton:hover{
+    background:#0f6edb;
+    transform:translateY(-2px);
+}
 
-#dato{
+#resultado{
+    margin:25px auto 0;
+    max-width:600px;
     background:white;
-    max-width:650px;
-    min-height:75px;
-    margin:25px auto;
     padding:20px;
     border-radius:10px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:#465365;
+    display:none;
 }
 
 .regresar{
@@ -191,134 +207,135 @@ footer strong{color:white;}
 
 <header>
 <nav>
-<div class="logo">POS<span>INIT</span></div>
+    <div class="logo">POS<span>INIT</span></div>
 
-<ul class="menu">
-<li><a href="index.html">Inicio</a></li>
-<li><a href="programacion.html">Programación</a></li>
-<li><a href="videojuegos.html">Videojuegos</a></li>
-<li><a href="ia.html">IA</a></li>
-<li><a href="ciberseguridad.html">Ciberseguridad</a></li>
-</ul>
+    <ul class="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="programacion.html">Programación</a></li>
+        <li><a href="videojuegos.html">Videojuegos</a></li>
+        <li><a href="ia.html">IA</a></li>
+        <li><a href="ciberseguridad.html">Ciberseguridad</a></li>
+    </ul>
 </nav>
 </header>
 
 <section class="hero">
 <div>
-<h1>🎮 Desarrollo de Videojuegos</h1>
-
-<p>
-El desarrollo de videojuegos combina programación, diseño,
-arte, sonido y creatividad para construir experiencias
-interactivas para diferentes plataformas.
-</p>
+    <h1>💻 Programación</h1>
+    <p>
+        La programación permite crear aplicaciones, páginas web,
+        videojuegos y sistemas mediante instrucciones que una
+        computadora puede interpretar.
+    </p>
 </div>
 </section>
 
 <main class="contenedor">
 
-<h2 class="titulo">¿Cómo se crea un videojuego?</h2>
-<p class="subtitulo">Un videojuego pasa por diferentes etapas de desarrollo.</p>
+<h2 class="titulo">Tecnologías de programación</h2>
+<p class="subtitulo">
+    Algunas de las tecnologías más utilizadas en desarrollo de software.
+</p>
 
 <div class="tarjetas">
 
 <div class="tarjeta">
-<div class="icono">💡</div>
-<h3>Idea</h3>
-<p>
-Primero se define el concepto, género, mecánicas,
-objetivo y público al que estará dirigido el videojuego.
-</p>
+    <div class="icono">🌐</div>
+    <h3>HTML</h3>
+    <p>
+        HTML define la estructura y contenido de una página web mediante
+        etiquetas como títulos, párrafos, imágenes y enlaces.
+    </p>
 </div>
 
 <div class="tarjeta">
-<div class="icono">🎨</div>
-<h3>Diseño</h3>
-<p>
-Se crean personajes, escenarios, interfaces,
-animaciones y otros elementos visuales.
-</p>
+    <div class="icono">🎨</div>
+    <h3>CSS</h3>
+    <p>
+        CSS permite modificar colores, tamaños, posiciones,
+        animaciones y la apariencia general de un sitio.
+    </p>
 </div>
 
 <div class="tarjeta">
-<div class="icono">👨‍💻</div>
-<h3>Programación</h3>
-<p>
-Los desarrolladores implementan las mecánicas,
-controles, reglas y sistemas necesarios.
-</p>
+    <div class="icono">⚡</div>
+    <h3>JavaScript</h3>
+    <p>
+        JavaScript permite agregar interactividad y modificar
+        dinámicamente los elementos de una página.
+    </p>
 </div>
 
 <div class="tarjeta">
-<div class="icono">🔊</div>
-<h3>Audio</h3>
-<p>
-Se incorporan efectos de sonido, música
-y otros elementos que mejoran la experiencia.
-</p>
+    <div class="icono">🐍</div>
+    <h3>Python</h3>
+    <p>
+        Python destaca por su sintaxis sencilla y se utiliza en
+        automatización, desarrollo web, datos e inteligencia artificial.
+    </p>
 </div>
 
 <div class="tarjeta">
-<div class="icono">🧪</div>
-<h3>Pruebas</h3>
-<p>
-El equipo identifica errores y verifica que las
-mecánicas funcionen de manera adecuada.
-</p>
+    <div class="icono">#️⃣</div>
+    <h3>C#</h3>
+    <p>
+        C# es un lenguaje desarrollado dentro del ecosistema .NET
+        y también es ampliamente utilizado con Unity.
+    </p>
 </div>
 
 <div class="tarjeta">
-<div class="icono">🚀</div>
-<h3>Publicación</h3>
-<p>
-Finalmente, el videojuego puede distribuirse
-en computadoras, consolas, móviles o la web.
-</p>
+    <div class="icono">🗄️</div>
+    <h3>SQL</h3>
+    <p>
+        SQL permite consultar y administrar información almacenada
+        en bases de datos relacionales.
+    </p>
 </div>
 
 </div>
 </main>
 
-<section class="interactivo">
+<section class="demo">
 <div class="contenedor">
 
-<h2 class="titulo">Dato sobre videojuegos</h2>
+<h2 class="titulo">Ejemplo interactivo</h2>
 
-<p>Presiona el botón para mostrar un dato diferente.</p>
+<p>JavaScript puede modificar el contenido de una página en tiempo real.</p>
 
-<div id="dato">
-🎮 Presiona el botón para comenzar.
+<div class="codigo">
+const mensaje = "¡Hola desde JavaScript!";<br>
+document.getElementById("resultado").innerHTML = mensaje;
 </div>
 
-<button class="boton" onclick="nuevoDato()">Nuevo dato</button>
+<button class="boton" onclick="ejecutarCodigo()">
+Ejecutar ejemplo
+</button>
+
+<div id="resultado"></div>
 
 </div>
 </section>
 
 <div class="regresar">
-<a class="boton" href="index.html">← Regresar a la página principal</a>
+<a href="index.html" class="boton">← Regresar a la página principal</a>
 </div>
 
 <footer>
-<p><strong>POSINIT</strong> | Desarrollo de Videojuegos</p>
+<p><strong>POSINIT</strong> | Sección de Programación</p>
 <p>Proyecto colaborativo GPDS - 2026</p>
 </footer>
 
 <script>
-const datos = [
-    "🎮 Un motor de videojuegos proporciona herramientas para facilitar el desarrollo.",
-    "💻 C# es uno de los lenguajes utilizados para programar proyectos desarrollados con Unity.",
-    "🧪 Las pruebas ayudan a detectar errores antes de publicar un videojuego.",
-    "🎨 El desarrollo de videojuegos puede reunir programadores, artistas, diseñadores y especialistas en audio.",
-    "📱 Los videojuegos pueden desarrollarse para dispositivos móviles, computadoras, web y consolas."
-];
+function ejecutarCodigo(){
+    const resultado = document.getElementById("resultado");
 
-function nuevoDato(){
-    const numero = Math.floor(Math.random() * datos.length);
-    document.getElementById("dato").textContent = datos[numero];
+    resultado.style.display = "block";
+    resultado.innerHTML =
+        "✅ ¡Hola desde JavaScript! El código se ejecutó correctamente.";
 }
 
-console.log("Página de Videojuegos cargada.");
+console.log("Página de Programación cargada correctamente.");
 </script>
 
 </body>
