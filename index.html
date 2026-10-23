@@ -1,53 +1,407 @@
 <!doctype html>
 <html lang="es">
-<head> 
+<head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Proyecto Integrador | Diagrama de Gantt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>POS Init | Diagrama de Gantt</title>
+
   <style>
-    :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark}
-    *{box-sizing:border-box}body{margin:0;background:#0b1220;color:#e9f0fb}header{padding:28px max(20px,5vw);background:#13223a;border-bottom:1px solid #304560}h1{margin:0 0 6px;font-size:clamp(1.5rem,3vw,2.2rem)}p{color:#aebfd5}main{padding:25px max(16px,4vw)}.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px}button,a.btn{background:#2563eb;border:0;border-radius:8px;color:white;padding:11px 16px;text-decoration:none;font-weight:600;cursor:pointer}button:hover,a.btn:hover{background:#1d4ed8}#status{color:#bfd0e5}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.tabs button{background:#243752}.tabs button.active{background:#2563eb}.sheet{overflow:auto;background:white;color:#111827;border-radius:10px;max-height:75vh;border:1px solid #455b76}table{border-collapse:collapse;font-size:13px;min-width:100%}td,th{border:1px solid #d7dde5;padding:7px 10px;min-width:65px;white-space:nowrap}tr:first-child{position:sticky;top:0;z-index:1;background:#e7eef8;font-weight:700}tr td:first-child{position:sticky;left:0;background:#f5f8fc;z-index:1}#error{color:#ffb4b4}footer{padding:18px max(16px,4vw);color:#9fb1c8;font-size:13px}
+    :root {
+      font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #0b1220;
+      color: #e9f0fb;
+    }
+
+    header {
+      padding: 28px max(20px, 5vw);
+      background: #13223a;
+      border-bottom: 1px solid #304560;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+    }
+
+    p {
+      color: #aebfd5;
+    }
+
+    main {
+      padding: 25px max(16px, 4vw);
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    button,
+    a.btn {
+      background: #2563eb;
+      border: 0;
+      border-radius: 8px;
+      color: white;
+      padding: 11px 16px;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button:hover,
+    a.btn:hover {
+      background: #1d4ed8;
+    }
+
+    #status {
+      color: #bfd0e5;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+
+    .tabs button {
+      background: #243752;
+    }
+
+    .tabs button.active {
+      background: #2563eb;
+    }
+
+    .sheet {
+      overflow: auto;
+      background: white;
+      color: #111827;
+      border-radius: 10px;
+      max-height: 75vh;
+      border: 1px solid #455b76;
+    }
+
+    table {
+      border-collapse: collapse;
+      font-size: 13px;
+      min-width: 100%;
+    }
+
+    td,
+    th {
+      border: 1px solid #d7dde5;
+      padding: 7px 10px;
+      min-width: 65px;
+      white-space: nowrap;
+    }
+
+    tr:first-child {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: #e7eef8;
+      font-weight: 700;
+    }
+
+    tr td:first-child {
+      position: sticky;
+      left: 0;
+      background: #f5f8fc;
+      z-index: 1;
+    }
+
+    #error {
+      color: #ffb4b4;
+      margin-bottom: 12px;
+    }
+
+    footer {
+      padding: 18px max(16px, 4vw);
+      color: #9fb1c8;
+      font-size: 13px;
+    }
   </style>
 </head>
+
 <body>
-<header><h1>📊 Diagrama de Gantt — Proyecto Integrador</h1><p>Seguimiento semanal de actividades y avances · POS Init</p></header>
-<main>
-  <div class="toolbar"><button id="refresh">↻ Actualizar avances</button><a class="btn" id="download" target="_blank" rel="noopener">⬇ Descargar Excel</a><span id="status" role="status">Preparando visualización…</span></div>
-  <div class="tabs" id="tabs"></div><div id="error" role="alert"></div><div class="sheet" id="sheet"></div>
-</main>
-<footer>Los datos se leen del archivo Excel publicado en la rama main de GitHub. Al guardar una versión nueva en el repositorio, pulsa «Actualizar avances» para consultarla. La visualización no permite editar el archivo.</footer>
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<script>
-  // Si cambias el nombre o ubicación del Excel, modifica esta ruta.
-  const EXCEL_PATH = 'Documentacion/Gantt_Proyecto_Integrador_plantilla.xlsx';
-  const RAW_URL = 'https://raw.githubusercontent.com/Alexis-Programador/Posinit/main/' + EXCEL_PATH;
-  document.getElementById('download').href = 'https://github.com/Alexis-Programador/Posinit/raw/refs/heads/main/' + EXCEL_PATH;
-  const status = document.getElementById('status');
-  const tabs = document.getElementById('tabs');
-  const sheet = document.getElementById('sheet');
-  const error = document.getElementById('error');
-  async function loadExcel(){
-    error.textContent='';status.textContent='Cargando última versión…';tabs.replaceChildren();sheet.replaceChildren();
-    try{
-      if(typeof XLSX==='undefined')throw Error('No se pudo cargar la biblioteca para leer Excel. Comprueba tu conexión.');
-      const response=await fetch(RAW_URL+'?v='+Date.now(),{cache:'no-store'});
-      if(!response.ok)throw Error('No se encontró el Excel (HTTP '+response.status+'). Comprueba el nombre y la carpeta en GitHub.');
-      const workbook=XLSX.read(await response.arrayBuffer(),{type:'array',cellStyles:true});
-      if(!workbook.SheetNames.length)throw Error('El libro no contiene hojas.');
-      function showSheet(name){
-        for(const button of tabs.children)button.classList.toggle('active',button.textContent===name);
-        const html=XLSX.utils.sheet_to_html(workbook.Sheets[name],{id:'gantt-table'});
-        sheet.innerHTML=html;
-        // Los datos se muestran directamente del archivo; algunos estilos avanzados de Excel no se reproducen.
+
+  <header>
+    <h1>📊 Diagrama de Gantt — Proyecto Integrador</h1>
+    <p>Seguimiento semanal de actividades y avances · POS Init</p>
+  </header>
+
+  <main>
+
+    <div class="toolbar">
+
+      <button id="refresh">
+        ↻ Actualizar avances
+      </button>
+
+      <a
+        class="btn"
+        id="download"
+        target="_blank"
+        rel="noopener"
+      >
+        ⬇ Descargar Excel
+      </a>
+
+      <span id="status" role="status">
+        Preparando visualización…
+      </span>
+
+    </div>
+
+    <div class="tabs" id="tabs"></div>
+
+    <div id="error" role="alert"></div>
+
+    <div class="sheet" id="sheet"></div>
+
+  </main>
+
+  <footer>
+    Los datos se leen del archivo Excel publicado en la rama
+    main de GitHub.
+
+    Al subir una versión nueva al repositorio, pulsa
+    «Actualizar avances» para consultar los cambios.
+
+    La visualización es de solo lectura.
+  </footer>
+
+  <!-- Biblioteca para leer archivos Excel -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <script>
+
+    // ==========================================
+    // CONFIGURACIÓN DEL REPOSITORIO
+    // ==========================================
+
+    const GITHUB_USER = 'Pos-Inti';
+
+    const GITHUB_REPO = 'Posinit';
+
+    const GITHUB_BRANCH = 'main';
+
+    // Ubicación exacta del Excel
+    const EXCEL_PATH =
+      'Documentacion/DIAGRAMA DE GANTT POS INIT.xlsx';
+
+
+    // ==========================================
+    // GENERAR ENLACE DEL EXCEL
+    // ==========================================
+
+    const ENCODED_PATH = EXCEL_PATH
+      .split('/')
+      .map(encodeURIComponent)
+      .join('/');
+
+    const RAW_URL =
+      'https://raw.githubusercontent.com/' +
+      GITHUB_USER + '/' +
+      GITHUB_REPO + '/' +
+      GITHUB_BRANCH + '/' +
+      ENCODED_PATH;
+
+
+    // ==========================================
+    // BOTÓN DESCARGAR EXCEL
+    // ==========================================
+
+    document.getElementById('download').href = RAW_URL;
+
+
+    // ==========================================
+    // ELEMENTOS DE LA PÁGINA
+    // ==========================================
+
+    const status = document.getElementById('status');
+
+    const tabs = document.getElementById('tabs');
+
+    const sheet = document.getElementById('sheet');
+
+    const error = document.getElementById('error');
+
+
+    // ==========================================
+    // CARGAR EXCEL DESDE GITHUB
+    // ==========================================
+
+    async function loadExcel() {
+
+      error.textContent = '';
+
+      status.textContent = 'Cargando última versión…';
+
+      tabs.replaceChildren();
+
+      sheet.replaceChildren();
+
+      try {
+
+        // Verificar biblioteca Excel
+        if (typeof XLSX === 'undefined') {
+
+          throw new Error(
+            'No se pudo cargar la biblioteca de Excel.'
+          );
+
+        }
+
+        // Descargar última versión del archivo
+        const response = await fetch(
+          RAW_URL + '?v=' + Date.now(),
+          {
+            cache: 'no-store'
+          }
+        );
+
+        // Verificar si existe
+        if (!response.ok) {
+
+          throw new Error(
+            'No se encontró el Excel. Error HTTP ' +
+            response.status +
+            '. Verifica el nombre y ubicación del archivo.'
+          );
+
+        }
+
+        // Leer Excel
+        const arrayBuffer = await response.arrayBuffer();
+
+        const workbook = XLSX.read(
+          arrayBuffer,
+          {
+            type: 'array',
+            cellStyles: true
+          }
+        );
+
+        // Verificar hojas
+        if (!workbook.SheetNames.length) {
+
+          throw new Error(
+            'El archivo Excel no contiene hojas.'
+          );
+
+        }
+
+
+        // ==========================================
+        // MOSTRAR HOJA DEL EXCEL
+        // ==========================================
+
+        function showSheet(name) {
+
+          // Activar pestaña seleccionada
+          for (const button of tabs.children) {
+
+            button.classList.toggle(
+              'active',
+              button.textContent === name
+            );
+
+          }
+
+          // Convertir Excel a tabla HTML
+          const html = XLSX.utils.sheet_to_html(
+            workbook.Sheets[name],
+            {
+              id: 'gantt-table'
+            }
+          );
+
+          // Mostrar contenido
+          sheet.innerHTML = html;
+
+        }
+
+
+        // ==========================================
+        // CREAR PESTAÑAS
+        // ==========================================
+
+        for (const name of workbook.SheetNames) {
+
+          const button = document.createElement('button');
+
+          button.textContent = name;
+
+          button.addEventListener(
+            'click',
+            () => showSheet(name)
+          );
+
+          tabs.appendChild(button);
+
+        }
+
+
+        // ==========================================
+        // MOSTRAR PRIMERA HOJA
+        // ==========================================
+
+        showSheet(workbook.SheetNames[0]);
+
+
+        // ==========================================
+        // FECHA DE ACTUALIZACIÓN
+        // ==========================================
+
+        status.textContent =
+          'Consultado: ' +
+          new Date().toLocaleString('es-MX');
+
       }
-      for(const name of workbook.SheetNames){
-        const button=document.createElement('button');button.textContent=name;button.addEventListener('click',()=>showSheet(name));tabs.appendChild(button);
+
+      catch (e) {
+
+        status.textContent =
+          'No se pudo mostrar el diagrama';
+
+        error.textContent = e.message;
+
+        console.error('Error al cargar Excel:', e);
+
       }
-      showSheet(workbook.SheetNames[0]);status.textContent='Actualizado: '+new Date().toLocaleString('es-MX');
-    }catch(e){status.textContent='No se pudo mostrar el diagrama';error.textContent=e.message;}
-  }
-  document.getElementById('refresh').addEventListener('click',loadExcel);
-  loadExcel();
-</script>
+
+    }
+
+
+    // ==========================================
+    // BOTÓN ACTUALIZAR
+    // ==========================================
+
+    document.getElementById('refresh')
+      .addEventListener('click', loadExcel);
+
+
+    // ==========================================
+    // CARGA AUTOMÁTICA
+    // ==========================================
+
+    loadExcel();
+
+  </script>
+
 </body>
 </html>
